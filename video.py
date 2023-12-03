@@ -244,9 +244,9 @@ def analyse_video(path):
     elif (amplitude_stats()[2] < .04):
         note_global[1] = 0
 
-    if (nb_parasite < 5):
+    if (nb_parasite < 30):
         note_global[2] = 2
-    elif (nb_parasite > 20):
+    elif (nb_parasite > 130):
         note_global[2] = 0
 
     return {
