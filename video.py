@@ -125,7 +125,8 @@ def check_for_sudden_movement(current_frame):
           amplitude = dist(all_points[movement[0]][15][0], all_points[movement[0]][15][1], all_points[movement[1]][15][0], all_points[movement[1]][15][1])/meter
           amplitudes.append(amplitude)
           right_hand_stop_moving = movement[1]
-          everything_found.append(["(G)estes", movement[0]/frameRate, type_geste(amplitude)])
+          if (amplitude > .02):
+            everything_found.append(["(G)estes", movement[0]/frameRate, type_geste(amplitude)])
 
 
 def type_geste(amplitude):
