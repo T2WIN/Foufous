@@ -171,7 +171,12 @@ function spanClick(time, index_) {
   /* add text to span & entry */
   span.textContent = sp[0] + '.' + sp[1][0];
   entry.appendChild(span);
-  entry.innerHTML += ": " + pop.type;
+  const span2 = document.createElement("span");
+  span2.classList.add(pop.note === "good" ? "good" : nextEvent.note === "ok" ? "ok" : "bad");
+  span2.textContent = pop.type;
+  entry.innerHTML += ": ";
+  entry.appendChild(span2);
+  
   document.getElementById("events").appendChild(entry); 
   }
 
