@@ -9,9 +9,10 @@ def analyze(p):
     i = 0
     for e in sorted(v["events"] + a["events"], key=lambda e: e["timestamp"]):
         events[str(i)] = e
+        i += 1
 
     return {
         "global": {**v["global"], **a["global"]},
         "events": events,
-        "stats": {**v["stats"], **a["stats"]},
+        "stats": a["stats"],
     }
