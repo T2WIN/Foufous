@@ -218,6 +218,7 @@ def analyse_video(path):
         analyse_image(frame, timestamp)
         # cap.release()
         current_frame += 1
+        print(current_frame/frameRate)
 
     cap.release()
     meter = (all_points[0][2][0] - all_points[0][5][0]) / 50 * 1000
