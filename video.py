@@ -90,7 +90,6 @@ def check_for_smile(current_frame):
   
     mouth_size = dist(all_points[0][5][0], all_points[0][5][1], all_points[0][2][0], all_points[0][2][1]) * .91
     if (dist(all_points[current_frame][10][0], all_points[current_frame][10][1], all_points[current_frame][9][0], all_points[current_frame][9][1]) > mouth_size):
-        print("nice smile at ", current_frame/frameRate)
         everything_found.append(["(S)ourire", current_frame/frameRate, "good"])
   
 potential_balance_issue = []
@@ -98,7 +97,6 @@ def check_balance(current_frame):
     global all_points, frameRate, everything_found, amplitudes, nb_ancrage, nb_parasite, checking_interval, meter, note_global
   
     if ((all_points[current_frame][11][0] - all_points[current_frame-checking_interval][11][0]) / (checking_interval / frameRate) > .075 * meter):
-        print(current_frame / frameRate, "attention ancrage")
         potential_balance_issue.append(current_frame/frameRate)
 
 def check_for_sudden_movement(current_frame):
@@ -115,10 +113,7 @@ def check_for_sudden_movement(current_frame):
     if (current_frame > left_hand_stop_moving):
       if (get_derivative(all_points, current_frame - checking_interval, current_frame, 15, left_shoulder) > derivative_threshold):
           movement = get_movement(current_frame, 15, left_shoulder)
-          print(movement[0]/frameRate, ",", movement[1]/frameRate, "left arm", get_derivative(all_points,
-                current_frame - checking_interval, current_frame, 15, left_shoulder) / meter, "at", current_frame/frameRate)
           amplitude = dist(all_points[movement[0]][15][0], all_points[movement[0]][15][1], all_points[movement[1]][15][0], all_points[movement[1]][15][1])/meter
-          print(amplitude)
           amplitudes.append(amplitude)
           left_hand_stop_moving = movement[1]
           everything_found.append(["(G)estes", movement[0]/frameRate, type_geste(amplitude)])
@@ -126,10 +121,7 @@ def check_for_sudden_movement(current_frame):
     if (current_frame > right_hand_stop_moving):
       if (get_derivative(all_points, current_frame - checking_interval, current_frame, 16, right_shoulder) > derivative_threshold):
           movement = get_movement(current_frame, 16, right_shoulder)
-          print(movement[0]/frameRate, ",", movement[1]/frameRate, "right arm", get_derivative(all_points,
-                current_frame - checking_interval, current_frame, 16, right_shoulder) / meter, "at", current_frame/frameRate)
           amplitude = dist(all_points[movement[0]][15][0], all_points[movement[0]][15][1], all_points[movement[1]][15][0], all_points[movement[1]][15][1])/meter
-          print(amplitude)
           amplitudes.append(amplitude)
           right_hand_stop_moving = movement[1]
           everything_found.append(["(G)estes", movement[0]/frameRate, type_geste(amplitude)])
@@ -217,11 +209,9 @@ def analyse_video(path):
     cap = cv2.VideoCapture(path)
     current_frame = 0
     while cap.isOpened():
-        print(current_frame)
         ret, frame = cap.read()
         # if frame is read correctly ret is True
         if not ret:
-            print("Can't receive frame (stream end?). Exiting ...")
             break
         timestamp = int(cap.get(cv2.CAP_PROP_POS_MSEC))
         analyse_image(frame, timestamp)
@@ -231,7 +221,6 @@ def analyse_video(path):
     cap.release()
     meter = (all_points[0][2][0] - all_points[0][5][0]) / 50 * 1000
 
-    print("start checking for sudden movements")
     current_frame = checking_interval
     left_hand_stop_moving = 0
     right_hand_stop_moving = 0
@@ -242,11 +231,6 @@ def analyse_video(path):
         current_frame+=1
 
     treat_balance_issues()
-    print()
-    print()
-    for i in everything_found:
-        print(i)
-    print(amplitude_stats())
 
     note_global = [1 for i in range(3)]
     if (nb_ancrage < 3):
@@ -266,7 +250,7 @@ def analyse_video(path):
 
     return {
         "global": {"Ancrage du corps": note_global[0], "Gestes": note_global[1], "Calme (vs anxiete)": note_global[2]},
-        "events": {str(i): {"timestamp": event[1], "type": event[0], "note": event[2]} for i, event in enumerate(everything_found)}
+        "events": [{"timestamp": event[1], "type": event[0], "note": event[2]} for event in everything_found]
     }
 
 if __name__ == "__main__":
