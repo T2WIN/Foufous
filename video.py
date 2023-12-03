@@ -109,14 +109,15 @@ def check_for_sudden_movement(current_frame):
     global left_hand_stop_moving
     global right_hand_stop_moving
 
-    derivative_threshold = .3 * meter / 1
+    derivative_threshold = .45 * meter / 1
     if (current_frame > left_hand_stop_moving):
       if (get_derivative(all_points, current_frame - checking_interval, current_frame, 15, left_shoulder) > derivative_threshold):
           movement = get_movement(current_frame, 15, left_shoulder)
           amplitude = dist(all_points[movement[0]][15][0], all_points[movement[0]][15][1], all_points[movement[1]][15][0], all_points[movement[1]][15][1])/meter
           amplitudes.append(amplitude)
           left_hand_stop_moving = movement[1]
-          everything_found.append(["(G)estes", movement[0]/frameRate, type_geste(amplitude)])
+          if (amplitude > .02):
+            everything_found.append(["(G)estes", movement[0]/frameRate, type_geste(amplitude)])
 
     if (current_frame > right_hand_stop_moving):
       if (get_derivative(all_points, current_frame - checking_interval, current_frame, 16, right_shoulder) > derivative_threshold):
@@ -129,10 +130,10 @@ def check_for_sudden_movement(current_frame):
 
 def type_geste(amplitude):
     global all_points, frameRate, everything_found, amplitudes, nb_ancrage, nb_parasite, checking_interval, meter, note_global
-    if (amplitude < .04):
+    if (amplitude < .06):
       nb_parasite += 1
       return "bad"
-    if (amplitude > .14):
+    if (amplitude > .11):
         return "good"
     return "ok"
 
@@ -249,7 +250,7 @@ def analyse_video(path):
         note_global[2] = 0
 
     return {
-        "global": {"Ancrage du corps": note_global[0], "Gestes": note_global[1], "Calme (vs anxiete)": note_global[2]},
+        "global": {"Ancrage du corps": note_global[0], "Gestes - Amplitude": note_global[1], "Gestes - Parasites": note_global[2]},
         "events": [{"timestamp": event[1], "type": event[0], "note": event[2]} for event in everything_found]
     }
 
