@@ -1,0 +1,196 @@
+body {
+  position: absolute;
+  width: 100vw;
+  min-height: 100vh;
+  top:0;
+  font-family: "ROBOTO", sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: white;
+  background-color: #363a4f;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #292c3f;
+}
+
+center h1, center h2 {
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  font-size: 300%;
+}
+
+
+.main {
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #363a4f;
+  padding-top: 1%;
+}
+
+form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.selectFile {
+  height: 50px;
+  margin: 20px auto;
+  position: relative;
+  width: 200px;          
+}
+
+label, .selectFile input {
+  cursor: pointer;
+  display: block;
+  height: 50px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  border-radius: 5px;       
+}
+
+label {
+  background: #fff;
+  display: inline-block;
+  font-size: 1.2em;
+  line-height: 50px;
+  margin: 10px;
+  text-align: center;
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-weight: 400;   
+  box-shadow: 0 1px 1px gray;
+}
+
+
+input[type="file"] {
+  opacity: 0;
+  z-index: 2;
+}
+
+input[type="submit"] {
+  opacity: 0;
+  z-index: 2;  
+}
+
+.green {
+  color:#a6e3a1;
+}
+
+.black {
+  color: #232634;
+}
+
+
+.result {
+  display: none;
+  width: 100%;
+  height: auto;
+  flex-direction: row;
+  justify-content: space-between ;
+  padding-top: 2vh;
+  margin-bottom: 10vh;
+}
+
+.scoreboard {
+  height: 100%;
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.result video {
+  width: 75%;
+  object-fit: cover;
+}
+
+fieldset {
+  width: 100%;
+  max-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: space-evenly; 
+  overflow-y: scroll;
+  border-radius: 15px 10px 0 10px;
+}
+
+.scoreboard fieldset p {
+  padding-left: 20px;
+}
+
+.end fieldset {
+border: none;
+}
+
+.pop-up {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 125px;
+  height: 50px;
+  padding-left: 15px;
+  transition: all 0.2s;
+  z-index: 100;
+}
+
+.timestamp {
+  text-decoration: underline;
+  z-index: 100;
+}
+
+.timestamp:hover {
+  background-color: #232634;
+  cursor: pointer;
+}
+
+
+#spinner {
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
+  height: 40px;
+  margin: 50px auto;
+}
+
+.ball {
+  width: 20px;
+  height: 20px;
+  background-color: #3498db;
+  border-radius: 50%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.good {
+  color: #a6d189;
+}
+
+.bad {
+  color: #e78284d0;
+}
+
+.ok {
+  color: #e5c890;
+}

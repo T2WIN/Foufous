@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <script src="./static/js/index.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <title>Prezzup analyzer</title>
+</head>
+<body>
+  <div class="main">
+
+  </div>
+  <center class="title">
+    <h1>Pitch analyser</h1>
+    <h2>by <span style="font-weight:bolder;"><a href="https://prezzup.com" style="text-decoration: none; color: white ;">Prezzup</a></span></h2>  
+  </center>
+
+  <div class="main">
+    <form id=myForm action="http://127.0.0.1:8000/uploadfile/" method="POST" enctype="multipart/form-data" onsubmit="return mySubmitFunction(event)">
+
+      <center>
+
+      <div class="selectFile">       
+        <label for="file" class="green">Select file</label>                   
+        <input required type="file" name="pitch" id="pitch" accept="video/*" onchange="changeName(this)">
+      </div>
+      <span id="filename"></span>
+    </center>
+      
+    <center>
+
+      <div class="selectFile">       
+        <label for="submit" class="black">Analyze</label>                   
+        <input type="submit" value="Analyse" id="submit"></div>
+    </center>
+    </form>
+
+    <div id="spinner" style="display: none; flex-direction: row;">
+      <div class="ball" id="ball1"></div>
+      <div class="ball" id="ball2"></div>
+      <div class="ball" id="ball3"></div>
+    </div>
+
+    <div class="result" id="result">
+      <video id="result_video" src=""></video>
+      <div class="scoreboard">
+
+      <fieldset>
+        <legend style="font-weight: bold; padding: 10px;">Real time - evaluation</legend>
+        <div id="events">
+        </div>
+      </fieldset>
+    
+      </div>
+    </div>
+
+    <div id="end" class="end" style="display: none;"><div class="scoreboard">
+          
+      <fieldset>
+        <legend>Global evaluation</legend>
+        <ul id="global">
+        </ul>
+      </fieldset>
+</div></div>
+  </div>
+</body>
+</html>
