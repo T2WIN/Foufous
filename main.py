@@ -7,7 +7,7 @@ from typing import Dict, List
 from uuid import UUID, uuid4
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
-import init
+import Mediapipe_video_analysis
 
 app = FastAPI()
 
@@ -33,7 +33,7 @@ jobs: Dict[UUID, Job] = {}  # Dict as job storage
 async def long_task(queue: asyncio.Queue, pitch: UploadFile = File(...)):
    # await asyncio.sleep(1)  # simulate 
    
-    queue.put(init.analyse_video('./../luc65r'))
+    queue.put(Mediapipe_video_analysis.analyse_video('./../luc65r'))
     with open('./../luc65r', 'wb') as out_file:
       out_file.write( pitch.file.read()) 
     await queue.put(None)
