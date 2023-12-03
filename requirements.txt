@@ -1,0 +1,5 @@
+whisper_timestamped
+mediapipe
+uvicorn
+fastapi
+python-multipart
