@@ -1,9 +1,9 @@
 import audio
 import video
 
-def analyze(video):
-    v = video.analyze_video(video)
-    a = audio.analyze_audio(video)
+def analyze(p):
+    v = video.analyse_video(p)
+    a = audio.analyze_audio(p)
 
     events = {}
     i = 0

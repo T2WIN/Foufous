@@ -228,11 +228,6 @@ def analyse_video(path):
         # cap.release()
         current_frame += 1
 
-        ## COMMENT TO PRODUCE FULL VIDEO
-        if (current_frame > 300):
-            cap.release()
-
-
     cap.release()
     meter = (all_points[0][2][0] - all_points[0][5][0]) / 50 * 1000
 
