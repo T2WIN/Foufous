@@ -72,7 +72,7 @@ async function processVideo() {
   nextEvent = queue[index] ?? null;
   const video = document.getElementById("result_video");
   let iteration = 0;
-  while(nextEvent!= null  && !(video.ended || video.paused) && ++iteration < MAX_ITERATIONS) {
+  while(nextEvent!= null  && !video.ended  && ++iteration < MAX_ITERATIONS) {
     await new Promise(r => setTimeout(r, 250));
     while (nextEvent!= null && nextEvent.timestamp - video.currentTime < 0.5) {
       // TODO : show event on video screen
@@ -103,13 +103,12 @@ async function processVideo() {
 
       /* show event in the list */
       const entry = document.createElement("p");
-      const sp = nextEvent.timestamp.toString().split('.');
       const span = document.createElement("span");
       span.classList.add("timestamp");
       span.setAttribute("onclick", `spanClick(${nextEvent.timestamp} - 1, ${index})`);
 
       /* add text to span & entry */
-      span.textContent = sp[0] + '.' + sp[1][0];
+      span.textContent =  nextEvent.timestamp.toFixed(2);
       entry.appendChild(span);
       const span2 = document.createElement("span");
       span2.classList.add(nextEvent.note === "good" ? "good" : nextEvent.note === "ok" ? "ok" : "bad");
@@ -163,13 +162,12 @@ function spanClick(time, index_) {
     const pop = queue[i];
   /* show event in the list */
   const entry = document.createElement("p");
-  const sp = pop.timestamp.toString().split('.');
   const span = document.createElement("span");
   span.classList.add("timestamp");
   span.setAttribute("onclick", `spanClick(${pop.timestamp}, ${i})`);
 
   /* add text to span & entry */
-  span.textContent = sp[0] + '.' + sp[1][0];
+  span.textContent = pop.timestamp.toFixed(2);
   entry.appendChild(span);
   const span2 = document.createElement("span");
   span2.classList.add(pop.note === "good" ? "good" : nextEvent.note === "ok" ? "ok" : "bad");
